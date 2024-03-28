@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">GitHubUsers</string>
+    <string name="id_template">ID: %s</string>
+    <string name="email">Email: </string>
+    <string name="name">Name: </string>
+    <string name="company">Company: </string>
+    <string name="following">Following count</string>
+    <string name="followers">Followers count</string>
+    <string name="created_at">Created at:</string>
+    <string name="item_favourite">Избранное</string>
 </resources>
