@@ -3,8 +3,8 @@ package com.example.githubusers.data.mappers
 import com.example.githubusers.data.database.UserInfoDbModel
 import com.example.githubusers.data.network.UserInfoDto
 import com.example.githubusers.data.network.UserShortInfoDto
-import com.example.githubusers.data.models.UserInfo
-import com.example.githubusers.data.models.UserShortInfo
+import com.example.githubusers.domain.models.UserInfo
+import com.example.githubusers.domain.models.UserShortInfo
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 

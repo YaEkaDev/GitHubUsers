@@ -1,7 +1,7 @@
-package com.example.githubusers.ui.adapters
+package com.example.githubusers.presentation.adapters
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.githubusers.data.models.UserShortInfo
+import com.example.githubusers.domain.models.UserShortInfo
 
 class UserInfoDiffCallback: DiffUtil.ItemCallback<UserShortInfo>() {
 

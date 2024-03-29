@@ -1,14 +1,16 @@
-package com.example.githubusers.ui.viewModels
+package com.example.githubusers.presentation.viewModels
 
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.githubusers.data.RepositoryImpl
 import com.example.githubusers.data.mappers.UserMapper
-import com.example.githubusers.data.network.ApiFactory
-import com.example.githubusers.data.models.UserInfo
-import com.example.githubusers.data.models.UserShortInfo
+import com.example.githubusers.domain.models.UserInfo
+import com.example.githubusers.domain.models.UserShortInfo
+import com.example.githubusers.domain.useCases.GetUserDetailInfoUseCase
+import com.example.githubusers.domain.useCases.LoadDataUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Action
@@ -19,7 +21,12 @@ import io.reactivex.schedulers.Schedulers
 class UsersListViewModel(application: Application) : AndroidViewModel(application) {
 
     private val mapper = UserMapper()
-    private val compositeDisposable = CompositeDisposable() //коллекция всех подписок
+    private val compositeDisposable = CompositeDisposable()
+
+    private val repository = RepositoryImpl(application)
+
+    private val loadDataUseCase = LoadDataUseCase(repository)
+    private val getUserDetailInfoUseCase = GetUserDetailInfoUseCase(repository)
 
     private val _usersList = MutableLiveData<List<UserShortInfo>>()
     val usersList: LiveData<List<UserShortInfo>>
@@ -45,8 +52,7 @@ class UsersListViewModel(application: Application) : AndroidViewModel(applicatio
             return
         }
 
-        val disposable =
-            ApiFactory.apiService.getListUsers(lastID = lastId)
+        val disposable = loadDataUseCase(lastId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(Consumer {
@@ -59,9 +65,8 @@ class UsersListViewModel(application: Application) : AndroidViewModel(applicatio
 
                     val list = mapper.mapListShortInfoDtoToListEntity(it)
                     lastId = list[list.lastIndex].id
-                    Log.d("MyLog", lastId.toString())
 
-                    if (_usersList.value == null) {
+                    if (_usersList.value == null) { //если это первая загрузка
                         _usersList.value = list
                     } else {
                         val loadUsers =
@@ -71,22 +76,23 @@ class UsersListViewModel(application: Application) : AndroidViewModel(applicatio
                     }
                 },
                     {
-                        Log.d("UserViewModel", "Throw: $it")
+                        Log.d("Errors", "loadData: $it")
                     })
 
         compositeDisposable.add(disposable)
+
     }
 
     fun getUserDetailInfo(login: String) {
 
-        val disposable = ApiFactory.apiService.getUserInfo(login)
+        val disposable = getUserDetailInfoUseCase(login)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 _userInfo.value = mapper.mapDtoToEntity(it)
             },
                 {
-                    Log.d("UserViewModel", "Throw: $it")
+                    Log.d("Errors", "getUserDetailInfo: $it")
                 })
 
         compositeDisposable.add(disposable)

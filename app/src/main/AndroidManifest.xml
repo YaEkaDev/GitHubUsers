@@ -15,14 +15,14 @@
         android:theme="@style/Theme.GitHubUsers"
         tools:targetApi="31">
         <activity
-            android:name=".ui.FavouriteUsersActivity"
+            android:name=".presentation.activity.FavouriteUsersActivity"
             android:label="@string/item_favourite"
             android:exported="false" />
         <activity
-            android:name=".ui.UserInfoActivity"
+            android:name=".presentation.activity.UserInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.UsersListActivity"
+            android:name=".presentation.activity.UsersListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package com.example.githubusers.data.models
+package com.example.githubusers.domain.models
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable

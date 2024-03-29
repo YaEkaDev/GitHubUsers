@@ -1,4 +1,4 @@
-package com.example.githubusers.ui.adapters
+package com.example.githubusers.presentation.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubusers.R
 import com.example.githubusers.databinding.ItemUserInfoBinding
-import com.example.githubusers.data.models.UserInfo
+import com.example.githubusers.domain.models.UserInfo
 import com.squareup.picasso.Picasso
 
 class UserInfoAdapter(private val context: Context): RecyclerView.Adapter<UserInfoViewHolder>()  {

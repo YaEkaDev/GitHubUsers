@@ -1,4 +1,4 @@
-package com.example.githubusers.ui
+package com.example.githubusers.presentation.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,9 +10,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.githubusers.R
 import com.example.githubusers.databinding.ActivityMainBinding
-import com.example.githubusers.data.models.UserShortInfo
-import com.example.githubusers.ui.adapters.UserShortInfoAdapter
-import com.example.githubusers.ui.viewModels.UsersListViewModel
+import com.example.githubusers.domain.models.UserShortInfo
+import com.example.githubusers.presentation.adapters.UserShortInfoAdapter
+import com.example.githubusers.presentation.viewModels.UsersListViewModel
 
 class UsersListActivity : AppCompatActivity() {
 
@@ -74,7 +74,6 @@ class UsersListActivity : AppCompatActivity() {
             override fun onReachEnd() {
                 viewModel.loadData()
             }
-
         }
 
         adapter.onUserClickListener = object : UserShortInfoAdapter.OnUserClickListener{

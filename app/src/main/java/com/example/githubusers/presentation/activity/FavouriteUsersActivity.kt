@@ -1,4 +1,4 @@
-package com.example.githubusers.ui
+package com.example.githubusers.presentation.activity
 
 import android.content.Context
 import android.content.Intent
@@ -7,9 +7,9 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.githubusers.databinding.ActivityFavouriteUsersBinding
-import com.example.githubusers.data.models.UserInfo
-import com.example.githubusers.ui.adapters.UserInfoAdapter
-import com.example.githubusers.ui.viewModels.FavouriteUsersViewModel
+import com.example.githubusers.domain.models.UserInfo
+import com.example.githubusers.presentation.adapters.UserInfoAdapter
+import com.example.githubusers.presentation.viewModels.FavouriteUsersViewModel
 
 class FavouriteUsersActivity : AppCompatActivity() {
 

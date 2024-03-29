@@ -1,4 +1,4 @@
-package com.example.githubusers.ui.adapters
+package com.example.githubusers.presentation.adapters
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubusers.databinding.ItemUserInfoBinding
