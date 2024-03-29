@@ -23,7 +23,6 @@ class UsersListViewModel @Inject constructor(
     private val mapper: UserMapper
 ) : ViewModel() {
 
-   // private val mapper = UserMapper()
     private val compositeDisposable = CompositeDisposable()
 
     private val _usersList = MutableLiveData<List<UserShortInfo>>()
