@@ -1,27 +1,24 @@
 package com.example.githubusers.presentation.viewModels
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.example.githubusers.data.RepositoryImpl
+import androidx.lifecycle.ViewModel
 import com.example.githubusers.domain.models.UserInfo
 import com.example.githubusers.domain.useCases.AddFavouriteUserUseCase
 import com.example.githubusers.domain.useCases.GetFavouriteUserByIdUseCase
 import com.example.githubusers.domain.useCases.RemoveFavouriteUserUseCase
 import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 
-class UserInfoViewModel(application: Application) : AndroidViewModel(application) {
+class UserInfoViewModel @Inject constructor(
+    private val getFavouriteUserByIdUseCase: GetFavouriteUserByIdUseCase,
+    private val addFavouriteUserUseCase: AddFavouriteUserUseCase,
+    private val removeFavouriteUserUseCase: RemoveFavouriteUserUseCase,
+) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
-    private val repository = RepositoryImpl(application)
-
-    private val getFavouriteUserByIdUseCase = GetFavouriteUserByIdUseCase(repository)
-    private val addFavouriteUserUseCase = AddFavouriteUserUseCase(repository)
-    private val removeFavouriteUserUseCase = RemoveFavouriteUserUseCase(repository)
-
-
-    fun getFavouriteUser(id: Int): LiveData<UserInfo>{
+    fun getFavouriteUser(id: Int): LiveData<UserInfo> {
         return getFavouriteUserByIdUseCase(id)
     }
 

@@ -7,8 +7,9 @@ import com.example.githubusers.domain.models.UserInfo
 import com.example.githubusers.domain.models.UserShortInfo
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
+import javax.inject.Inject
 
-class UserMapper {
+class UserMapper @Inject constructor(){
     fun mapDtoToEntity(userDto: UserInfoDto) = UserInfo(
         id = userDto.id,
         login = userDto.login,

@@ -11,30 +11,53 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.githubusers.R
 import com.example.githubusers.databinding.ActivityMainBinding
 import com.example.githubusers.domain.models.UserShortInfo
+import com.example.githubusers.presentation.UserApp
 import com.example.githubusers.presentation.adapters.UserShortInfoAdapter
 import com.example.githubusers.presentation.viewModels.UsersListViewModel
+import com.example.githubusers.presentation.viewModels.ViewModelFactory
+import javax.inject.Inject
 
 class UsersListActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: UsersListViewModel
+    private val component by lazy {
+        (application as UserApp).component
+    }
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val binding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[UsersListViewModel::class.java]
+    }
     private lateinit var adapter: UserShortInfoAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
+        component.inject(this)
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setupRecyclerView()
-        viewModel = ViewModelProvider(this)[UsersListViewModel::class.java]
         viewModelObserve()
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            binding.swipeRefreshLayout.isRefreshing = true
+            viewModel.setLastId()
+            viewModel.loadData()
+        }
 
     }
 
     private fun viewModelObserve() {
 
         viewModel.usersList.observe(this, Observer {
+            if (it==null){
+                return@Observer
+            }
+            binding.swipeRefreshLayout.isRefreshing = false
             adapter.submitList(it)
             Log.d("MyLog", it.toString())
         })
@@ -69,7 +92,6 @@ class UsersListActivity : AppCompatActivity() {
 
         adapter = UserShortInfoAdapter(this)
         binding.rvUsersList.adapter = adapter
-
         adapter.onReachEndListener  = object : UserShortInfoAdapter.OnReachEndListener{
             override fun onReachEnd() {
                 viewModel.loadData()

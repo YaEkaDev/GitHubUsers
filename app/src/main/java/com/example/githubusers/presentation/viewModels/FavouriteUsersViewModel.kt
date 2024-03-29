@@ -1,18 +1,18 @@
 package com.example.githubusers.presentation.viewModels
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.example.githubusers.data.RepositoryImpl
+import androidx.lifecycle.ViewModel
 import com.example.githubusers.domain.models.UserInfo
 import com.example.githubusers.domain.useCases.GetFavouriteUsersUseCase
+import javax.inject.Inject
 
-class FavouriteUsersViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val repository = RepositoryImpl(application)
-    private val getFavouriteUsersUseCase = GetFavouriteUsersUseCase(repository)
+class FavouriteUsersViewModel @Inject constructor(
+    private val getFavouriteUsersUseCase: GetFavouriteUsersUseCase
+) : ViewModel() {
 
     fun getFavouriteUsers(): LiveData<List<UserInfo>> {
         return getFavouriteUsersUseCase()
     }
+
 }

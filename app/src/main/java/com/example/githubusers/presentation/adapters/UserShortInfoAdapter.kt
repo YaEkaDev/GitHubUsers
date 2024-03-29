@@ -16,15 +16,18 @@ class UserShortInfoAdapter(private val context: Context) :
     var onUserClickListener: OnUserClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserInfoViewHolder {
+
         val binding = ItemUserInfoBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
         return UserInfoViewHolder(binding)
+
     }
 
     override fun onBindViewHolder(holder: UserInfoViewHolder, position: Int) {
+
         val user = getItem(position)
         with(holder) {
             binding.tvLogin.text = user.login
@@ -32,12 +35,15 @@ class UserShortInfoAdapter(private val context: Context) :
                 String.format(context.resources.getString(R.string.id_template), user.id.toString())
             Picasso.get().load(user.avatarUrl).into(binding.ivAvatar)
 
-            if (position >= currentList.size - 10 && onReachEndListener != null) {
+            if (position >= currentList.size-10 && onReachEndListener != null) {
                 onReachEndListener?.onReachEnd()
             }
             itemView.setOnClickListener { onUserClickListener?.onUserClick(user) }
+
         }
+
     }
+
 
     interface OnReachEndListener {
         fun onReachEnd()

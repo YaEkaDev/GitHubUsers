@@ -2,8 +2,9 @@ package com.example.githubusers.domain.useCases
 
 import com.example.githubusers.domain.Repository
 import io.reactivex.disposables.Disposable
+import javax.inject.Inject
 
-class RemoveFavouriteUserUseCase(private val repository: Repository) {
+class RemoveFavouriteUserUseCase @Inject constructor(private val repository: Repository) {
     operator fun invoke(id: Int): Disposable{
         return repository.removeFavouriteUser(id)
     }

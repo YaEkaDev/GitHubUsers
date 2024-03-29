@@ -1,11 +1,9 @@
 package com.example.githubusers.presentation.viewModels
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.githubusers.data.RepositoryImpl
+import androidx.lifecycle.ViewModel
 import com.example.githubusers.data.mappers.UserMapper
 import com.example.githubusers.domain.models.UserInfo
 import com.example.githubusers.domain.models.UserShortInfo
@@ -16,17 +14,17 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Action
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 
-class UsersListViewModel(application: Application) : AndroidViewModel(application) {
+class UsersListViewModel @Inject constructor(
+    private val loadDataUseCase : LoadDataUseCase,
+    private val getUserDetailInfoUseCase : GetUserDetailInfoUseCase,
+    private val mapper: UserMapper
+) : ViewModel() {
 
-    private val mapper = UserMapper()
+   // private val mapper = UserMapper()
     private val compositeDisposable = CompositeDisposable()
-
-    private val repository = RepositoryImpl(application)
-
-    private val loadDataUseCase = LoadDataUseCase(repository)
-    private val getUserDetailInfoUseCase = GetUserDetailInfoUseCase(repository)
 
     private val _usersList = MutableLiveData<List<UserShortInfo>>()
     val usersList: LiveData<List<UserShortInfo>>
@@ -44,6 +42,11 @@ class UsersListViewModel(application: Application) : AndroidViewModel(applicatio
 
     init {
         loadData()
+    }
+
+    fun setLastId(){
+        lastId = INIT_ID
+        _usersList.value = null
     }
 
     fun loadData() {

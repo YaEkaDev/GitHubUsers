@@ -3,21 +3,22 @@ package com.example.githubusers.data
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.example.githubusers.data.database.AppDatabase
+import com.example.githubusers.data.database.UserInfoDao
 import com.example.githubusers.data.mappers.UserMapper
-import com.example.githubusers.domain.models.UserInfo
 import com.example.githubusers.data.network.ApiFactory
 import com.example.githubusers.data.network.UserInfoDto
 import com.example.githubusers.data.network.UserShortInfoDto
 import com.example.githubusers.domain.Repository
+import com.example.githubusers.domain.models.UserInfo
 import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class RepositoryImpl(application: Application) : Repository {
-
-    private val mapper = UserMapper()
-    private val userInfoDao = AppDatabase.getInstance(application).userInfoDao()
+class RepositoryImpl @Inject constructor(
+    private val mapper: UserMapper,
+    private val userInfoDao: UserInfoDao,
+) : Repository {
 
     override fun getFavouriteUserById(id: Int): LiveData<UserInfo> =
         MediatorLiveData<UserInfo>().apply {

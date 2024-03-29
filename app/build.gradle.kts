@@ -1,3 +1,4 @@
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -55,14 +56,16 @@ dependencies {
 
     implementation("com.squareup.picasso:picasso:2.71828")
 
-    val room_version = "2.6.0"
+    val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
     implementation ("androidx.room:room-ktx:$room_version")
     implementation ("androidx.room:room-rxjava2:$room_version")
 
-    implementation ("com.google.dagger:dagger:2.35.1")
-    kapt ("com.google.dagger:dagger-compiler:2.35.1")
+    implementation ("com.google.dagger:dagger:2.51")
+    kapt ("com.google.dagger:dagger-compiler:2.51")
+
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
