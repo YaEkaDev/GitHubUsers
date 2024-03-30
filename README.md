@@ -2,11 +2,13 @@
 
 ## Screenshots
 
-| Users list                          | Favourite users                     | Detail info                                     |
-| ----------------------------------- | ----------------------------------- | ------------------------------------------- |
-| ![users](https://github.com/YaEkaDev/GitHubUsers/blob/master/Demo/users_list.jpg)| ![fav](https://github.com/YaEkaDev/GitHubUsers/blob/master/Demo/favourite_users_list.jpg) | ![lizzard](https://github.com/YaEkaDev/GitHubUsers/blob/master/Demo/adding_favourite_user.gif) |
+| Users list                          | Favourite users                     | 
+| ----------------------------------- | ----------------------------------- | 
+| ![users](https://github.com/YaEkaDev/GitHubUsers/blob/master/Demo/users_list.jpg)| ![fav](https://github.com/YaEkaDev/GitHubUsers/blob/master/Demo/favourite_users_list.jpg) |
 
 При активации звездочки пользователь сохраняется на устройстве. Посмотреть сохраненных пользователей можно в избранном. 
+
+![lizzard](https://github.com/YaEkaDev/GitHubUsers/blob/master/Demo/adding_favourite_user.gif) 
 
 ## What is used in project?
 - Kotlin
