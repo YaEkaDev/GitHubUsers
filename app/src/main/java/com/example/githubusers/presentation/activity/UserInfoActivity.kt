@@ -4,6 +4,7 @@ import android.R
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -43,6 +44,7 @@ class UserInfoActivity : AppCompatActivity() {
 
         parseIntent()
         viewModelObserve()
+        Log.d("MyLog", "ccc")
     }
 
     private fun viewModelObserve() {
